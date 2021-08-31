@@ -25,7 +25,7 @@ import java.util.Map;
  */
 @Controller
 public class UserController {
-    private Logger logger=Logger.getLogger(UserController.class);
+    private final Logger logger=Logger.getLogger(UserController.class);
 
 
     @Autowired
@@ -59,6 +59,14 @@ public class UserController {
         int i = userService.userDel(id);
         logger.info("用户删除成功！准备返回页面！i="+i);
         return Msg.success("删除成功！");
+    }
+
+    @RequestMapping("userAdd.action")
+    @ResponseBody
+    public Msg userAdd(ThbyUser user){
+        logger.info("进入添加员工方法！");
+        logger.info("此次传入员工姓名为："+user.getUsername());
+        return Msg.success("添加成功！员工姓名为："+user.getUsername());
     }
 
 }

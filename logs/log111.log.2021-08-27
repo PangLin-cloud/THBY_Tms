@@ -1,0 +1,5 @@
+2021-08-27 14:56:34  [ http-nio-8080-exec-5:0 ] - [ INFO ]  member-list.html页面发起ajax请求开始调用数据
+2021-08-27 14:56:35  [ http-nio-8080-exec-5:272 ] - [ INFO ]  数据调用完成，准备返回页面！
+2021-08-27 14:56:35  [ http-nio-8080-exec-4:519 ] - [ INFO ]  member-list.html页面发起ajax请求开始调用数据
+2021-08-27 14:56:35  [ http-nio-8080-exec-4:529 ] - [ INFO ]  数据调用完成，准备返回页面！
+2021-08-27 14:56:38  [ http-nio-8080-exec-10:3754 ] - [ INFO ]  跳转至member-list.html页面
