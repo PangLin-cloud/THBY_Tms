@@ -6,6 +6,7 @@ import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.tianhai.pojo.ThbyUser;
 import com.tianhai.service.UserService;
 import com.tianhai.util.Msg;
+import com.tianhai.util.THBYutil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -66,6 +70,7 @@ public class UserController {
     public Msg userAdd(ThbyUser user){
         logger.info("进入添加员工方法！");
         logger.info("此次传入员工姓名为："+user.getUsername());
+        userService.userAdd(user);
         return Msg.success("添加成功！员工姓名为："+user.getUsername());
     }
 

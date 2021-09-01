@@ -6,6 +6,7 @@ import com.tianhai.mapper.ThbyUserMapper;
 import com.tianhai.pojo.Department;
 import com.tianhai.pojo.Position;
 import com.tianhai.pojo.ThbyUser;
+import com.tianhai.util.THBYutil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -97,5 +98,11 @@ public class UserService {
 
     public int userDel(int id){
         return userMapper.deleteByPrimaryKey(id);
+    }
+
+    public int userAdd(ThbyUser user){
+        user.setBirthday(THBYutil.StringParseDate(user.getBirthdayStr()));
+        user.setCreateTime(THBYutil.StringParseDate(user.getCreateTimeStr()));
+        return userMapper.insertSelective(user);
     }
 }

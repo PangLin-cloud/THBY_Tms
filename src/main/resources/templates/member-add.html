@@ -12,6 +12,8 @@
         <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="./js/xadmin.js"></script>
         <script type="text/javascript" src="./lib/layui/lay/modules/laydate.js"></script>
+        <script type="text/javascript" src="./lib/layui/lay/modules/layer.js"></script>
+        <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
         <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
         <!--[if lt IE 9]>
             <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -21,7 +23,7 @@
     <body>
         <div class="layui-fluid">
             <div class="layui-row">
-                <form class="layui-form">
+                <form class="layui-form" method="post">
                     <div class="layui-form-item">
                         <label for="L_email" class="layui-form-label">
                             <span class="x-red">*</span>姓名</label>
@@ -39,7 +41,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">出生日期</label>
                         <div class="layui-input-block">
-                            <input type="text" name="birthday" id="date1" lay-verify="birthday" autocomplete="off" class="layui-input">
+                            <input type="text" name="birthdayStr" id="date1" lay-verify="birthday" autocomplete="off" class="layui-input">
                             <span id="testView"></span>
                         </div>
                     </div>
@@ -78,17 +80,17 @@
                     <div class="layui-form-item" id="area-pickers">
                         <div class="layui-form-label">现住址</div>
                         <div class="layui-input-inline" style="width: 200px;">
-                            <select name="nativeplace" class="province-selector" data-value="广东省" lay-filter="province-1">
+                            <select name="nativeplace" class="province-selector" data-value="广东省" lay-filter="province-2">
                                 <option value="">请选择省</option>
                             </select>
                         </div>
                         <div class="layui-input-inline" style="width: 200px;">
-                            <select name="city" class="city-selector" data-value="深圳市" lay-filter="city-1">
+                            <select name="city" class="city-selector" data-value="深圳市" lay-filter="city-2">
                                 <option value="">请选择市</option>
                             </select>
                         </div>
                         <div class="layui-input-inline" style="width: 200px;">
-                            <select name="county" class="county-selector" data-value="龙岗区" lay-filter="county-1">
+                            <select name="county" class="county-selector" data-value="龙岗区" lay-filter="county-2">
                                 <option value="">请选择区</option>
                             </select>
                         </div>
@@ -97,7 +99,7 @@
                         <label for="L_creatTime" class="layui-form-label">
                             <span class="x-red">*</span>入职日期</label>
                         <div class="layui-input-inline">
-                            <input type="text" id="L_creatTime" name="createTime" required="" lay-verify="createtime" autocomplete="off" class="layui-input"></div>
+                            <input type="text" id="L_creatTime" name="createTimeStr" required="" lay-verify="createtime" autocomplete="off" class="layui-input"></div>
                     </div>
                     <div class="layui-form-item" id="deptOpentions">
                         <div class="layui-form-label">部门职位</div>
@@ -122,7 +124,7 @@
                     </div>
                     <div class="layui-form-item">
                         <label for="submit" class="layui-form-label"></label>
-                        <button id="submit" class="layui-btn" lay-filter="add" lay-submit="add">增加</button></div>
+                        <button id="submit" class="layui-btn" lay-filter="add" lay-submit>增加</button></div>
                     </div>
                 </form>
             </div>
@@ -148,33 +150,35 @@
                     elem: '#date1' //指定日期元素的id
                 });
                 //监听提交
-                form.on('submit(add)',
-                function(data) {
-                    console.log(data);
+                form.on('submit(add)',function(data) {
+                    // console.log(data);
                     //发异步，把数据提交给php
-                    $.ajax({
-                        url:"/userAdd.action",
-                        data:$(from).serialize(),
-                        dataType:"json",
-                        success:function (result){
-                            alert(result.msg);
-                        }
-                    })
 
-                    layer.alert("增加成功", {
-                        icon: 6
-                    },
-                    function() {
-                        //关闭当前frame
-                        xadmin.close();
-
-                        // 可以对父窗口进行刷新
-                        xadmin.father_reload();
-                    });
                     return false;
                 });
 
-            });</script>
+            });
+        $("#submit").click(function (){
+            $.ajax({
+                url:'userAdd.action',
+                type:'POST',
+                dataType: 'json',
+                data:$("form").serialize(),
+                success:function (result){
+                    layer.alert("增加成功", {
+                            icon: 6
+                        },
+                        function() {
+                            //关闭当前frame
+                            xadmin.close();
+
+                            // 可以对父窗口进行刷新
+                            xadmin.father_reload();
+                        });
+                }
+            });
+        })
+        </script>
     </body>
     <script>
         //配置插件目录
