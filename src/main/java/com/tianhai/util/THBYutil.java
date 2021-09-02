@@ -29,6 +29,25 @@ public class THBYutil {
         }
         return date;
     }
+    /** 将字符串拆分并拼接
+     * @description: 将字符串拆分并拼接
+     * @param: * @param str
+     * @return: java.lang.String
+     * @author Pang-Lin
+     * @date: 2021/9/1 18:25
+     */
+    public static String StringSpilt(String str){
+        StringBuilder string = new StringBuilder();
+        //长度5 下标从0开始 到4
+        String substring = str.substring(0, str.length());
+        //以逗号分割，得出的数据存到 result 里面
+        String[] result = substring.split(",");
+        for (String r : result) {
+            string.append(r);
+        }
+        return string.toString();
+    }
+
 
 
 }

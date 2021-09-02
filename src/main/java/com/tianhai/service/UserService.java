@@ -103,6 +103,8 @@ public class UserService {
     public int userAdd(ThbyUser user){
         user.setBirthday(THBYutil.StringParseDate(user.getBirthdayStr()));
         user.setCreateTime(THBYutil.StringParseDate(user.getCreateTimeStr()));
+        user.setCurrentaddress(THBYutil.StringSpilt(user.getCurrentaddress()));
+        user.setNativeplace(THBYutil.StringSpilt(user.getNativeplace()));
         return userMapper.insertSelective(user);
     }
 }
